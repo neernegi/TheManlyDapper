@@ -1,0 +1,29 @@
+<%- include('../../shared/includes/head', { pageTitle: product.title }) %>
+<link rel="stylesheet" href="/styles/products.css">
+<!-- <link rel="stylesheet" href="/styles/cart.css"> -->
+<script src="/scripts/cart-management.js" defer></script>
+<!-- <script src="/scripts/cart-item-management.js" defer></script> -->
+</head>
+<body>
+  <%- include('../../shared/includes/header') %>
+  <main id="product-details">
+    <header>
+      <img src="<%= product.imageUrl %>" alt="<%= product.title %>">
+      <div id="product-info">
+        <h1><%= product.title %></h1>
+        <p>$<%= product.price %></p>
+        <button class="btn" data-productid="<%= product.id %>" data-csrf="<%= locals.csrfToken %>">Add to Cart</button>
+        <% if (locals.isAuth) { %>
+          <form action="" method="POST">
+            <input type="hidden" name="_csrf" value="<%= locals.csrfToken %>">
+            <button id="buyNow" class="btn">Buy Product</button>
+          </form>
+        <% } else { %>
+          <p id="cart-total-fallback">Log in to proceed and purchase the items.</p>
+        <% } %>
+      </div>
+    </header>
+    
+    <p id="product-description"><%= product.description %></p>
+  </main>
+<%- include('../../shared/includes/footer') %>
